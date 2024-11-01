@@ -29,23 +29,23 @@ public class SplashActivity extends AppCompatActivity {
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.anim);
         appName.startAnimation(anim);
 
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                try {
-//                    sleep(3000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//        }.start();
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish(); // Finish splash activity
-        }, 3000); //
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        }.start();
+//        new Handler().postDelayed(() -> {
+//            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+//            startActivity(intent);
+//            finish(); // Finish splash activity
+//        }, 3000); //
     }
 }
