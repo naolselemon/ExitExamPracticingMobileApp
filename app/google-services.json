@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "854092666326",
+    "project_id": "exampractice-fe9b4",
+    "storage_bucket": "exampractice-fe9b4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854092666326:android:2cc525a2ff34854d918077",
+        "android_client_info": {
+          "package_name": "com.example.quizapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIAWB-oXVhk2mjXuit8JOCpbSHFieTo4M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

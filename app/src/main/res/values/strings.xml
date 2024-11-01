@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Exam Practice</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="home">Home</string>
+    <string name="account">My Account</string>
+    <string name="leaderboard">Leaderboard</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="category_name">Category Name</string>
+    <string name="_25_tests">25 Tests</string>
+    <string name="emailHint">Enter E-main ID</string>
+    <string name="passwordHint">Enter Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="loginButton">LOGIN</string>
+    <string name="don_t_have_an_account">Don\'t have an Account?</string>
+    <string name="signupButton">SIGNUP</string>
+    <string name="full_name">Full Name</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="email_id">Email-ID</string>
+    <string name="signup">SIGNUP</string>
+</resources>
