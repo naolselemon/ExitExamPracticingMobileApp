@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         Objects.requireNonNull(progressDialog.getWindow()).setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         progressText = progressDialog.findViewById(R.id.dialogText);
-        progressText.setText("Signing up...");
+        progressText.setText("Signing in...");
 
          loginButton.setOnClickListener(view -> {
              if (validated()){
@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
 
-        return false;
+        return true;
     }
 
     public void login() {
