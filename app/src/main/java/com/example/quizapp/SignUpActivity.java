@@ -110,10 +110,22 @@ public class SignUpActivity extends AppCompatActivity {
                             progressDialog.show();
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(SignUpActivity.this, "Sign Up Successfully", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                            startActivity(intent);
-//                            finish();
+                            DBQuery.createUserData(emailStr, nameStr, new CompleteListener() {
+                                @Override
+                                public void onSuccess() {
+                                    progressDialog.dismiss();
+                                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                    startActivity(intent);
+//                                   finish();
+                                }
+
+                                @Override
+                                public void onFailure() {
+                                    Toast.makeText(SignUpActivity.this, "Something wrong happened! Try again later", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                }
+                            });
+
                         } else {
                             progressDialog.dismiss();
                             // If sign in fails, display a message to the user.

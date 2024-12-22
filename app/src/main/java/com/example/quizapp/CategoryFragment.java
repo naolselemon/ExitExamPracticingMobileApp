@@ -1,5 +1,7 @@
 package com.example.quizapp;
 
+import static com.example.quizapp.DBQuery.get_catList;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -25,7 +27,7 @@ public class CategoryFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private GridView catView;
-    private List<CategoryModel> catList = new ArrayList<CategoryModel>();
+;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -69,19 +71,11 @@ public class CategoryFragment extends Fragment {
        View view =  inflater.inflate(R.layout.fragment_category, container, false);
        catView = view.findViewById(R.id.category_grid);
 
-       loadCategories();
-       CategoryAdapter adapter = new CategoryAdapter(catList);
+//       loadCategories();
+       CategoryAdapter adapter = new CategoryAdapter(get_catList);
        catView.setAdapter(adapter);
 
        return view;
     }
 
-    private void loadCategories() {
-        catList.clear();
-
-        catList.add(new CategoryModel("1", "Computer Science", 100));
-        catList.add(new CategoryModel("2", "Information Technology", 100));
-        catList.add(new CategoryModel("3", "Information System", 100));
-        catList.add(new CategoryModel("4", "Software Engineering", 100));
-    }
 }

@@ -1,5 +1,6 @@
 package com.example.quizapp;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,11 @@ public class CategoryAdapter extends BaseAdapter {
             myView = view;
         }
 
+        myView.setOnClickListener(view1 -> {
+            Intent intent = new Intent(view.getContext(), TestActivity.class);
+            intent.putExtra("CAT_INDEX", i);
+            view.getContext().startActivity(intent);
+        });
 
         TextView catName = myView.findViewById(R.id.category_name);
         TextView noOfTests = myView.findViewById(R.id.no_tests);

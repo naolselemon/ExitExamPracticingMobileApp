@@ -29,4 +29,8 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="email_id">Email-ID</string>
     <string name="signup">SIGNUP</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="titleofTest">Title</string>
+    <string name="_80percentage">80%</string>
+    <string name="logout">Logout</string>
 </resources>
