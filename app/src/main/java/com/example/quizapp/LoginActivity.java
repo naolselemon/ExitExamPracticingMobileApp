@@ -131,6 +131,21 @@ public class LoginActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     if (task.isSuccessful()) {
                         Toast.makeText(LoginActivity.this, "Sign in success", Toast.LENGTH_SHORT).show();
+                        DBQuery.loadCategories(new CompleteListener() {
+                            @Override
+                            public void onSuccess() {
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure() {
+                                progressDialog.dismiss();
+                                Toast.makeText(LoginActivity.this, "Something wrong happened! Try again later", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();

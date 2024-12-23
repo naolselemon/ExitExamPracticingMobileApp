@@ -1,8 +1,12 @@
 package com.example.quizapp;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.activity.EdgeToEdge;
@@ -22,7 +26,9 @@ import java.util.Objects;
 public class TestActivity extends AppCompatActivity {
         private RecyclerView testView;
         private Toolbar toolbar;
-        private List<TestModel> testList = new ArrayList<>();
+        private TestAdapter adapter;
+        private Dialog progressDialog;
+        private TextView progressText;
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,29 +39,52 @@ public class TestActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(true);
-        int cat_index = getIntent().getIntExtra("CAT_INDEX", 0);
-        getSupportActionBar().setTitle(CategoryFragment.catList.get(cat_index).getName());
+//        int cat_index = getIntent().getIntExtra("CAT_INDEX", 0);
+        getSupportActionBar().setTitle(DBQuery.get_catList.get(DBQuery.get_selected_cat_index).getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         testView = findViewById(R.id.test_recycler_view);
+
+
+            progressDialog = new Dialog(TestActivity.this);
+            progressDialog.setContentView(R.layout.dialog_layout);
+            progressDialog.setCancelable(false);
+            Objects.requireNonNull(progressDialog.getWindow()).setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            progressText = progressDialog.findViewById(R.id.dialogText);
+            progressText.setText("Loading...");
+            progressDialog.show();
 
         LinearLayoutManager  layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         testView.setLayoutManager(layoutManager);
 
-        loadData();
-        TestAdapter adapter = new TestAdapter(testList);
-        testView.setAdapter(adapter);
-        Log.d("TestActivity", "Test List Size: " + testList.size());
-            Log.d("TestActivity", "Category Index: " + cat_index);
-            Log.d("TestActivity", "Category Name: " + CategoryFragment.catList.get(cat_index).getName());
+//        loadData();
+            DBQuery.loadTestData(new CompleteListener() {
+                @Override
+                public void onSuccess() {
+                    progressDialog.dismiss();
+                    adapter = new TestAdapter(DBQuery.get_testList);
+                    testView.setAdapter(adapter);
+                }
+
+                @Override
+                public void onFailure() {
+                    progressDialog.dismiss();
+                    Toast.makeText(TestActivity.this, "Something wrong happened! Try again later", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+//        Log.d("TestActivity", "Test List Size: " + testList.size());
+//            Log.d("TestActivity", "Category Index: " + cat_index);
+//            Log.d("TestActivity", "Category Name: " + DBQuery.get_catList.get(cat_index).getName());
 
 
         }
-    public void loadData(){
-            testList.add(new TestModel("Test 1", 10, 10));
-            testList.add(new TestModel("Test 2", 10, 10));
-            testList.add(new TestModel("Test 3", 10, 10));
-    }
+//    public void loadData(){
+//            testList.add(new TestModel("Test 1", 10, 10));
+//            testList.add(new TestModel("Test 2", 10, 10));
+//            testList.add(new TestModel("Test 3", 10, 10));
+//    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

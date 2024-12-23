@@ -113,10 +113,25 @@ public class SignUpActivity extends AppCompatActivity {
                             DBQuery.createUserData(emailStr, nameStr, new CompleteListener() {
                                 @Override
                                 public void onSuccess() {
+                                    DBQuery.loadCategories(new CompleteListener() {
+                                        @Override
+                                        public void onSuccess() {
+                                            progressDialog.dismiss();
+                                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+
+                                        @Override
+                                        public void onFailure() {
+                                            Toast.makeText(SignUpActivity.this, "Something wrong happened! Try again later", Toast.LENGTH_SHORT).show();
+                                            progressDialog.dismiss();
+                                        }
+                                    });
                                     progressDialog.dismiss();
                                     Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                                     startActivity(intent);
-//                                   finish();
+                                    finish();
                                 }
 
                                 @Override

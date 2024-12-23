@@ -41,16 +41,16 @@ public class CategoryAdapter extends BaseAdapter {
         }
 
         myView.setOnClickListener(view1 -> {
-            Intent intent = new Intent(view.getContext(), TestActivity.class);
-            intent.putExtra("CAT_INDEX", i);
-            view.getContext().startActivity(intent);
+            DBQuery.get_selected_cat_index = i;
+            Intent intent = new Intent(myView.getContext(), TestActivity.class);
+            myView.getContext().startActivity(intent);
         });
 
         TextView catName = myView.findViewById(R.id.category_name);
         TextView noOfTests = myView.findViewById(R.id.no_tests);
 
         catName.setText(categoryList.get(i).getName());
-        noOfTests.setText(String.valueOf(categoryList.get(i).getNoOfTests()));
+        noOfTests.setText(String.valueOf(categoryList.get(i).getNoOfTests() + " Tests"));
 
         return myView;
     }
