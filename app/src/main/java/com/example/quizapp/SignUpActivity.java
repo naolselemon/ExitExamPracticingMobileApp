@@ -113,7 +113,7 @@ public class SignUpActivity extends AppCompatActivity {
                             DBQuery.createUserData(emailStr, nameStr, new CompleteListener() {
                                 @Override
                                 public void onSuccess() {
-                                    DBQuery.loadCategories(new CompleteListener() {
+                                    DBQuery.loadData(new CompleteListener() {
                                         @Override
                                         public void onSuccess() {
                                             progressDialog.dismiss();

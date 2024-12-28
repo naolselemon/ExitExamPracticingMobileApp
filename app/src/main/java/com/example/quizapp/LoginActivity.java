@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     if (task.isSuccessful()) {
                         Toast.makeText(LoginActivity.this, "Sign in success", Toast.LENGTH_SHORT).show();
-                        DBQuery.loadCategories(new CompleteListener() {
+                        DBQuery.loadData(new CompleteListener() {
                             @Override
                             public void onSuccess() {
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);

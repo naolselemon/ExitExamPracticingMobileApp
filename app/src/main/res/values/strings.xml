@@ -33,4 +33,7 @@
     <string name="titleofTest">Title</string>
     <string name="_80percentage">80%</string>
     <string name="logout">Logout</string>
+    <string name="categories">Category</string>
+    <string name="test_number_1">Test Number: 1</string>
+    <string name="start">Start</string>
 </resources>

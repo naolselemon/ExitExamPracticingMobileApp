@@ -40,8 +40,17 @@ public class TestActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(true);
 //        int cat_index = getIntent().getIntExtra("CAT_INDEX", 0);
+            if (DBQuery.get_catList.isEmpty()) {
+                Log.e("TestActivity", "Category list is empty.");
+                Toast.makeText(this, "Category list is empty!", Toast.LENGTH_SHORT).show();
+                finish(); // Exit the activity
+                return;
+            }
+
         getSupportActionBar().setTitle(DBQuery.get_catList.get(DBQuery.get_selected_cat_index).getName());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         testView = findViewById(R.id.test_recycler_view);
 
 

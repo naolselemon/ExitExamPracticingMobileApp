@@ -24,7 +24,41 @@ public class DBQuery {
     public static FirebaseFirestore  get_firestore = FirebaseFirestore.getInstance();
     public static List<CategoryModel> get_catList = new ArrayList<CategoryModel>();
     public static  List<TestModel> get_testList = new ArrayList<>();
+    public static List<QuestionModel> get_questionList = new ArrayList<>();
     public static int get_selected_cat_index = 0;
+    public static int get_selected_test_index = 0;
+    public static ProfileModel myProfile = new ProfileModel("Name", null);
+
+    public static void loadQuestions(CompleteListener completeListener){
+        get_questionList.clear();
+        get_firestore.collection("questions")
+                .whereEqualTo("Category", get_catList.get(get_selected_cat_index).getDocID())
+                .whereEqualTo("Test", get_testList.get(get_selected_test_index).getTestId())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for(DocumentSnapshot doc: queryDocumentSnapshots){
+                            get_questionList.add(new QuestionModel(
+                                    doc.getString("Question"),
+                                    doc.getString("A"),
+                                    doc.getString("B"),
+                                    doc.getString("C"),
+                                    doc.getString("D"),
+                                    Objects.requireNonNull(doc.getLong("Answer")).intValue(),
+                                    -1
+                            ));
+                            completeListener.onSuccess();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        completeListener.onFailure();
+                    }
+                });
+    }
     public static void createUserData(String email, String name, CompleteListener completeListener) {
         Map<String, Object> userData = new ArrayMap<>();
         userData.put("Email_ID", email);
@@ -55,66 +89,38 @@ public class DBQuery {
         });
     }
 
-//    public static void loadCategories(CompleteListener completeListener) {
-//        get_catList.clear();
-//
-//        get_firestore.collection("quiz").get()
-//                .addOnSuccessListener(queryDocumentSnapshots -> {
-//                    Map<String, QueryDocumentSnapshot> docList = new ArrayMap<>();
-//
-//                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-//                        docList.put(doc.getId(), doc);
-//                    }
-//
-//                    QueryDocumentSnapshot catListDoc = docList.get("Categories");
-//
-//                    // Validate if Categories document exists
-//                    if (catListDoc == null) {
-//                        completeListener.onFailure();
-//                        return;
-//                    }
-//
-//                    // Validate if Count field exists
-//                    Long catCount = catListDoc.getLong("Count");
-//                    if (catCount == null) {
-//                        completeListener.onFailure();
-//                        return;
-//                    }
-//
-//                    for (int i = 1; i <= catCount; i++) {
-//                        String catID = catListDoc.getString("Cat_ID" + i);
-//
-//                        // Validate if category ID exists
-//                        if (catID == null) {
-//                            completeListener.onFailure();
-//                            return;
-//                        }
-//
-//                        QueryDocumentSnapshot catDoc = docList.get(catID);
-//
-//                        // Validate if category document exists
-//                        if (catDoc == null) {
-//                            completeListener.onFailure();
-//                            return;
-//                        }
-//
-//                        String catName = catDoc.getString("Name");
-//                        Long noOfTests = catDoc.getLong("No_of_Test");
-//
-//                        // Validate if fields exist in the category document
-//                        if (catName == null || noOfTests == null) {
-//                            completeListener.onFailure();
-//                            return;
-//                        }
-//
-//                        get_catList.add(new CategoryModel(catID, catName, noOfTests.intValue()));
-//                    }
-//
-//                    completeListener.onSuccess();
-//                })
-//                .addOnFailureListener(e -> completeListener.onFailure());
-//    }
+    public static void getUserData(CompleteListener completeListener){
+        get_firestore.collection("users").document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        myProfile.setName(documentSnapshot.getString("Name"));
+                        myProfile.setEmail(documentSnapshot.getString("Email_ID"));
+                        completeListener.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        completeListener.onFailure();
+                    }
+                });
+    }
 
+    public static void loadData(CompleteListener completeListener){
+        loadCategories(new CompleteListener() {
+            @Override
+            public void onSuccess() {
+                getUserData(completeListener);
+            }
+
+            @Override
+            public void onFailure() {
+                completeListener.onFailure();
+            }
+        });
+    }
     public static void loadCategories(CompleteListener completeListener){
         get_catList.clear();
         //collection name for categories from firestore
