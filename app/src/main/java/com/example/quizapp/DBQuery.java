@@ -28,7 +28,10 @@ public class DBQuery {
     public static int get_selected_cat_index = 0;
     public static int get_selected_test_index = 0;
     public static ProfileModel myProfile = new ProfileModel("Name", null);
-
+    public static final int NOT_VISITED = 0;
+    public static final int UNANSWERED = 0;
+    public static final int ANSWERED = 0;
+    public static final int REVIEW = 0;
     public static void loadQuestions(CompleteListener completeListener){
         get_questionList.clear();
         get_firestore.collection("questions")
@@ -46,7 +49,8 @@ public class DBQuery {
                                     doc.getString("C"),
                                     doc.getString("D"),
                                     Objects.requireNonNull(doc.getLong("Answer")).intValue(),
-                                    -1
+                                    -1,
+                                    NOT_VISITED
                             ));
                             completeListener.onSuccess();
                         }

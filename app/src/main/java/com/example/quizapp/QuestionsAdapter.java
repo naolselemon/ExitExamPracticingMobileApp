@@ -1,5 +1,7 @@
 package com.example.quizapp;
 
+import static com.example.quizapp.DBQuery.ANSWERED;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +99,7 @@ public class QuestionsAdapter  extends RecyclerView.Adapter<QuestionsAdapter.Vie
             if (prevSelectedB == null){
                 btn.setBackgroundResource(R.drawable.selected_item);
                 DBQuery.get_questionList.get(quesID).setSelectedAnswer(option_num);
+                changeStatus(quesID, ANSWERED);
                 prevSelectedB = btn;
             }
             else{
@@ -114,6 +117,10 @@ public class QuestionsAdapter  extends RecyclerView.Adapter<QuestionsAdapter.Vie
                 }
             }
         }
+
+        private void changeStatus(int quesID, int status){
+
+        }
         private void setOption(Button btn, int option_num, int quesID){
             if (questionsList.get(quesID).getSelectedAnswer() == option_num){
                 btn.setBackgroundResource(R.drawable.selected_item);
@@ -123,4 +130,6 @@ public class QuestionsAdapter  extends RecyclerView.Adapter<QuestionsAdapter.Vie
             }
         }
     }
+
+
 }

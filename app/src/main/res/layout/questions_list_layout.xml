@@ -7,31 +7,35 @@
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout">
 
-<!--    <include layout="@layout/activity_question" />-->
+    <include layout="@layout/activity_question" />
 
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_700"
-   >
+    android:layout_marginTop="24dp"
+    android:background="@color/white"
+    android:layout_gravity="end"
+    >
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="48dp"
         android:text="Review"
+        android:textColor="@color/pink"
         android:textSize="16dp"
-        tools:layout_editor_absoluteX="304dp"
-        tools:layout_editor_absoluteY="81dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView4"
         tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,8 +47,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:text="Answered"
+        android:textColor="@color/green"
         android:textSize="16dp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +58,7 @@
         android:id="@+id/imageView3"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toStartOf="@+id/textView2"
@@ -63,47 +68,54 @@
         app:srcCompat="@drawable/circle"
         app:tint="@color/red" />
 
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
         android:text="Unanswered"
+        android:textColor="@color/red"
         android:textSize="16dp"
-        tools:layout_editor_absoluteX="57dp"
-        tools:layout_editor_absoluteY="73dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintStart_toEndOf="@id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:tint="@color/gray"
-        app:layout_constraintEnd_toStartOf="@+id/textView4"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="124dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/circle" />
+        app:srcCompat="@drawable/circle"
+        app:tint="@color/gray" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="20dp"
         android:text="Not Visited"
+        android:textColor="@color/gray"
         android:textSize="16dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         tools:layout_editor_absoluteX="304dp"
-        tools:ignore="MissingConstraints" />
+         />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
-        app:tint="@color/pink"
-        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="124dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
         app:srcCompat="@drawable/circle"
-        tools:layout_editor_absoluteY="80dp"
+        app:tint="@color/pink"
         tools:ignore="MissingConstraints" />
 
     <View
@@ -119,6 +131,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <GridView
+        android:id="@+id/ques_list_gv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="center"
@@ -137,13 +150,6 @@
         app:layout_constraintEnd_toEndOf="parent" >
     </GridView>
 
-    <ImageButton
-        android:id="@+id/drawerCloseB"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_close"
-        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

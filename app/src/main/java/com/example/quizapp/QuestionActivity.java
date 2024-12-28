@@ -1,5 +1,7 @@
 package com.example.quizapp;
 
+import static com.example.quizapp.DBQuery.NOT_VISITED;
+import static com.example.quizapp.DBQuery.UNANSWERED;
 import static com.example.quizapp.DBQuery.get_catList;
 import static com.example.quizapp.DBQuery.get_questionList;
 import static com.example.quizapp.DBQuery.get_selected_cat_index;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,11 +42,12 @@ public class QuestionActivity extends AppCompatActivity {
     private int quesID;
     private DrawerLayout drawer;
     private ImageButton drawerCloseB;
+    private GridView quesListGV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_question);
+        setContentView(R.layout.questions_list_layout);
 
         init();
 
@@ -76,7 +80,7 @@ public class QuestionActivity extends AppCompatActivity {
         prevQuesB = findViewById(R.id.previousB);
         nextQuesB = findViewById(R.id.nextB);
         quesListB = findViewById(R.id.quesListGrid);
-//        drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
 //        drawerCloseB = findViewById(R.id.drawerCloseB);
         quesID = 0;
         tvQuesID.setText(String.format("1/%s", String.valueOf(get_questionList.size())));
@@ -96,6 +100,10 @@ public class QuestionActivity extends AppCompatActivity {
 
               View view = snapHelper.findSnapView(recyclerView.getLayoutManager());
               quesID = recyclerView.getLayoutManager().getPosition(view);
+
+              if (get_questionList.get(quesID).getStatus() == NOT_VISITED){
+                  get_questionList.get(quesID).setStatus(UNANSWERED);
+              }
 
               tvQuesID.setText(String.format("%s/%s", String.valueOf(quesID+1), String.valueOf(get_questionList.size())));
 
