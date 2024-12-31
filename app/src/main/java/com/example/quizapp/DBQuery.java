@@ -28,10 +28,11 @@ public class DBQuery {
     public static int get_selected_cat_index = 0;
     public static int get_selected_test_index = 0;
     public static ProfileModel myProfile = new ProfileModel("Name", null);
-    public static final int NOT_VISITED = 0;
-    public static final int UNANSWERED = 0;
-    public static final int ANSWERED = 0;
-    public static final int REVIEW = 0;
+    public static  final int NOT_VISITED = 0;
+    public static  final int UNANSWERED = 1;
+    public static  final int ANSWERED = 2;
+    public static  final int REVIEW = 3;
+
     public static void loadQuestions(CompleteListener completeListener){
         get_questionList.clear();
         get_firestore.collection("questions")

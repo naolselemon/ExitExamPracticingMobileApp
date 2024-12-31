@@ -1,6 +1,8 @@
 package com.example.quizapp;
 
+import static com.example.quizapp.DBQuery.ANSWERED;
 import static com.example.quizapp.DBQuery.NOT_VISITED;
+import static com.example.quizapp.DBQuery.REVIEW;
 import static com.example.quizapp.DBQuery.UNANSWERED;
 import static com.example.quizapp.DBQuery.get_catList;
 import static com.example.quizapp.DBQuery.get_questionList;
@@ -8,6 +10,7 @@ import static com.example.quizapp.DBQuery.get_selected_cat_index;
 import static com.example.quizapp.DBQuery.get_selected_test_index;
 import static com.example.quizapp.DBQuery.get_testList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -19,7 +22,9 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
@@ -43,6 +48,9 @@ public class QuestionActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private ImageButton drawerCloseB;
     private GridView quesListGV;
+    private  ImageView markImage;
+    private QuestionGridAdapter gridAdapter;
+    private CountDownTimer timer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +65,9 @@ public class QuestionActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         questionView.setLayoutManager(layoutManager);
+
+        gridAdapter = new QuestionGridAdapter(this, get_questionList.size());
+        quesListGV.setAdapter(gridAdapter);
 
         setSnapHelper();
         setClickListener();
@@ -81,10 +92,14 @@ public class QuestionActivity extends AppCompatActivity {
         nextQuesB = findViewById(R.id.nextB);
         quesListB = findViewById(R.id.quesListGrid);
         drawer = findViewById(R.id.drawer_layout);
+        markImage = findViewById(R.id.mark_image);
+        quesListGV = findViewById(R.id.ques_list_gv);
 //        drawerCloseB = findViewById(R.id.drawerCloseB);
         quesID = 0;
         tvQuesID.setText(String.format("1/%s", String.valueOf(get_questionList.size())));
         catNameTV.setText(get_catList.get(get_selected_cat_index).getName());
+
+        get_questionList.get(0).setStatus(UNANSWERED);
     }
 
 
@@ -103,6 +118,13 @@ public class QuestionActivity extends AppCompatActivity {
 
               if (get_questionList.get(quesID).getStatus() == NOT_VISITED){
                   get_questionList.get(quesID).setStatus(UNANSWERED);
+              }
+
+              if(get_questionList.get(quesID).getStatus() == REVIEW){
+                  markImage.setVisibility(View.VISIBLE);
+              }
+              else{
+                  markImage.setVisibility(View.GONE);
               }
 
               tvQuesID.setText(String.format("%s/%s", String.valueOf(quesID+1), String.valueOf(get_questionList.size())));
@@ -141,6 +163,8 @@ public class QuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 get_questionList.get(quesID).setSelectedAnswer(-1);
+                get_questionList.get(quesID).setStatus(UNANSWERED);
+                markImage.setVisibility(View.GONE);
                 questionsAdapter.notifyDataSetChanged();
             }
         });
@@ -149,8 +173,32 @@ public class QuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (! drawer.isDrawerOpen(GravityCompat.END)){
+                    gridAdapter.notifyDataSetChanged();
                     drawer.openDrawer(GravityCompat.END);
                 }
+            }
+        });
+        markB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (markImage.getVisibility() != View.VISIBLE){
+                    markImage.setVisibility(View.VISIBLE);
+                    get_questionList.get(quesID).setStatus(REVIEW);
+                }
+                else{
+                    markImage.setVisibility(View.GONE);
+                    if(get_questionList.get(quesID).getSelectedAnswer() != -1){
+                        get_questionList.get(quesID).setStatus(ANSWERED);
+                    }else{
+                        get_questionList.get(quesID).setStatus(UNANSWERED);
+                    }
+                }
+            }
+        });
+        submitB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitTest();
             }
         });
 
@@ -164,12 +212,52 @@ public class QuestionActivity extends AppCompatActivity {
 //        });
     }
 
+    private void submitTest(){
+        AlertDialog.Builder builder  = new AlertDialog.Builder(QuestionActivity.this);
+        builder.setCancelable(true);
+
+        View view = getLayoutInflater().inflate(R.layout.alert_dialog_layout, null);
+        builder.setView(view);
+
+        Button cancelB = view.findViewById(R.id.cancelB);
+        Button confirmB = view.findViewById(R.id.confirmB);
+
+        final AlertDialog alertDialog = builder.create();
+
+
+        cancelB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        confirmB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timer.cancel();
+                alertDialog.dismiss();
+
+                Intent intent = new Intent(QuestionActivity.this, ScoreActivity.class);
+                startActivity(intent);
+                QuestionActivity.this.finish();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+public void goToQuestion(int position){
+        questionView.smoothScrollToPosition(position);
+        if(drawer.isDrawerOpen(GravityCompat.END)){
+            drawer.closeDrawer(GravityCompat.END);
+        }
+}
     private void startTimer(){
         //Calculating total time if each question is given one minutes --- getTime() uses milliseconds
        long totalTime = (long) get_testList.get(get_selected_test_index).getTime() *60*1000;
 
        //decrementing total time per seconds(1000 millis)
-        CountDownTimer timer = new CountDownTimer(totalTime + 1000, 1000) { // here on the totalTime 1000 is added this because once start button is clicked timer starts but question interface takes some seconds to be displayed(1 seconds GUI)
+        timer = new CountDownTimer(totalTime + 1000, 1000) { // here on the totalTime 1000 is added this because once start button is clicked timer starts but question interface takes some seconds to be displayed(1 seconds GUI)
             @Override
             public void onTick(long remainingTime) {
 
@@ -184,7 +272,9 @@ public class QuestionActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
+                Intent intent = new Intent(QuestionActivity.this, ScoreActivity.class);
+                startActivity(intent);
+                QuestionActivity.this.finish();
             }
         };
         timer.start();

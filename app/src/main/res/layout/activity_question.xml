@@ -145,5 +145,14 @@
         tools:ignore="MissingConstraints" >
     </androidx.recyclerview.widget.RecyclerView>
 
-
+<ImageView
+    android:layout_width="70dp"
+    android:layout_height="70dp"
+    android:id="@+id/mark_image"
+    android:src="@drawable/question_symbol"
+    android:elevation="5dp"
+    android:layout_marginEnd="26dp"
+    android:visibility="gone"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/ll2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
