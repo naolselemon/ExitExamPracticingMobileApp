@@ -218,7 +218,6 @@ public class QuestionActivity extends AppCompatActivity {
 
         View view = getLayoutInflater().inflate(R.layout.alert_dialog_layout, null);
         builder.setView(view);
-
         Button cancelB = view.findViewById(R.id.cancelB);
         Button confirmB = view.findViewById(R.id.confirmB);
 
