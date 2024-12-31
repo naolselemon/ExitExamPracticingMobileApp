@@ -41,13 +41,13 @@ implements NavigationView.OnNavigationItemSelectedListener{
             = item -> {
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_home) {
-                    bottomNavigationView.setSelectedItemId(R.id.nav_home);
+                    setFragment(new CategoryFragment());
                     return true;
                 } else if (itemId == R.id.nav_leaderboard) {
-                    bottomNavigationView.setSelectedItemId(R.id.nav_leaderboard);
+                    setFragment(new LeaderboardFragment());
                     return true;
                 } else {
-                   bottomNavigationView.setSelectedItemId(R.id.nav_account);
+                   setFragment(new AccountFragment());
                     return true;
                 }
 

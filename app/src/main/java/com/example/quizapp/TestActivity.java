@@ -67,9 +67,24 @@ public class TestActivity extends AppCompatActivity {
             DBQuery.loadTestData(new CompleteListener() {
                 @Override
                 public void onSuccess() {
-                    progressDialog.dismiss();
-                    adapter = new TestAdapter(DBQuery.get_testList);
-                    testView.setAdapter(adapter);
+                    DBQuery.loadCategories(new CompleteListener() {
+                        @Override
+                        public void onSuccess() {
+                            progressDialog.dismiss();
+                            adapter = new TestAdapter(DBQuery.get_testList);
+                            testView.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            progressDialog.dismiss();
+                            Toast.makeText(TestActivity.this, "Something wrong happened! Try again later", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+//                    progressDialog.dismiss();
+//                    adapter = new TestAdapter(DBQuery.get_testList);
+//                    testView.setAdapter(adapter);
                 }
 
                 @Override
