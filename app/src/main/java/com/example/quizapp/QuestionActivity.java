@@ -24,7 +24,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
@@ -34,6 +33,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
+
+import com.example.quizapp.Adapter.QuestionGridAdapter;
+import com.example.quizapp.Adapter.QuestionsAdapter;
 
 import java.util.concurrent.TimeUnit;
 
@@ -51,6 +53,7 @@ public class QuestionActivity extends AppCompatActivity {
     private  ImageView markImage;
     private QuestionGridAdapter gridAdapter;
     private CountDownTimer timer;
+    private long timeLeft;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -237,6 +240,8 @@ public class QuestionActivity extends AppCompatActivity {
                 alertDialog.dismiss();
 
                 Intent intent = new Intent(QuestionActivity.this, ScoreActivity.class);
+                long totalTime = (long) get_testList.get(get_selected_test_index).getTime() *60*1000;
+                intent.putExtra("TIME_TAKEN", totalTime - timeLeft);
                 startActivity(intent);
                 QuestionActivity.this.finish();
             }
@@ -259,7 +264,7 @@ public void goToQuestion(int position){
         timer = new CountDownTimer(totalTime + 1000, 1000) { // here on the totalTime 1000 is added this because once start button is clicked timer starts but question interface takes some seconds to be displayed(1 seconds GUI)
             @Override
             public void onTick(long remainingTime) {
-
+                timeLeft = remainingTime;
                 //here Once the exam started timer starts count down. In the below code I am formatting how the timer
                 // displays minute and seconds by calculating them from milliseconds
                 String time = String.format("%02d:%02d min", TimeUnit.MILLISECONDS.toMinutes(remainingTime),
@@ -272,6 +277,8 @@ public void goToQuestion(int position){
             @Override
             public void onFinish() {
                 Intent intent = new Intent(QuestionActivity.this, ScoreActivity.class);
+                long totalTime = (long) get_testList.get(get_selected_test_index).getTime() *60*1000;
+                intent.putExtra("TIME_TAKEN", totalTime - timeLeft);
                 startActivity(intent);
                 QuestionActivity.this.finish();
             }

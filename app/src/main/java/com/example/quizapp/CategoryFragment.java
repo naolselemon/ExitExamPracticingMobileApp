@@ -11,8 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.quizapp.Adapter.CategoryAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

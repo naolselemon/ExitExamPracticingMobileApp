@@ -4,6 +4,11 @@ import android.util.ArrayMap;
 
 import androidx.annotation.NonNull;
 
+import com.example.quizapp.Model.CategoryModel;
+import com.example.quizapp.Model.ProfileModel;
+import com.example.quizapp.Model.QuestionModel;
+import com.example.quizapp.Model.RankModel;
+import com.example.quizapp.Model.TestModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +33,7 @@ public class DBQuery {
     public static int get_selected_cat_index = 0;
     public static int get_selected_test_index = 0;
     public static ProfileModel myProfile = new ProfileModel("Name", null);
+    public static RankModel myPerformance = new RankModel(0, -1);
     public static  final int NOT_VISITED = 0;
     public static  final int UNANSWERED = 1;
     public static  final int ANSWERED = 2;
@@ -102,6 +108,8 @@ public class DBQuery {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         myProfile.setName(documentSnapshot.getString("Name"));
                         myProfile.setEmail(documentSnapshot.getString("Email_ID"));
+
+                        myPerformance.setScore(Objects.requireNonNull(documentSnapshot.getLong("Total_Score")).intValue());
                         completeListener.onSuccess();
                     }
                 })
@@ -201,5 +209,31 @@ public class DBQuery {
                     }
                 });
 
+    }
+    public static void saveResult(int score, CompleteListener completeListener){
+        WriteBatch batch = get_firestore.batch();
+        DocumentReference userDoc = get_firestore.collection("users").document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()));
+        batch.update(userDoc, "Total_Score ", score);
+        if(score > get_testList.get(get_selected_test_index).getTestScore()){
+            DocumentReference scoreDoc = userDoc.collection("User_Data").document("My_Scores");
+            batch.update(scoreDoc, get_testList.get(get_selected_test_index).getTestId(), score);
+        }
+        batch.commit()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        if(score > get_testList.get(get_selected_test_index).getTestScore()){
+                            get_testList.get(get_selected_test_index).setTestScore(score);
+                        }
+                        myPerformance.setScore(score);
+                        completeListener.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                            completeListener.onFailure();
+                    }
+                });
     }
 }

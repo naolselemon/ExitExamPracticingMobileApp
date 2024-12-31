@@ -1,4 +1,4 @@
-package com.example.quizapp;
+package com.example.quizapp.Adapter;
 
 import android.content.Intent;
 import android.util.Log;
@@ -10,6 +10,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.quizapp.DBQuery;
+import com.example.quizapp.Model.TestModel;
+import com.example.quizapp.R;
+import com.example.quizapp.StartTestActivity;
 
 import java.util.List;
 

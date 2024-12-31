@@ -1,4 +1,4 @@
-package com.example.quizapp;
+package com.example.quizapp.Adapter;
 
 import static com.example.quizapp.DBQuery.ANSWERED;
 import static com.example.quizapp.DBQuery.NOT_VISITED;
@@ -14,6 +14,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+
+import com.example.quizapp.DBQuery;
+import com.example.quizapp.QuestionActivity;
+import com.example.quizapp.R;
 
 public class QuestionGridAdapter extends BaseAdapter {
     private int numOfQuestions;
