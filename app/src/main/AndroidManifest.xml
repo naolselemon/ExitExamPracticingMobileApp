@@ -22,7 +22,8 @@
             android:exported="false" />
         <activity
             android:name=".TestActivity"
-            android:exported="false" />
+            android:theme="@style/Theme.QuizApp.NoActionBar" />
+
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />

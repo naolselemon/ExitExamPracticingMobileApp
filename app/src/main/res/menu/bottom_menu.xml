@@ -4,10 +4,11 @@
      android:id="@+id/nav_home"
      android:title="@string/home"
      android:icon="@drawable/ic_home"/>
- <item
-     android:id="@+id/nav_leaderboard"
-     android:title="@string/leaderboard"
-     android:icon="@drawable/ic_leaderboard"/>
+
+<!-- <item-->
+<!--     android:id="@+id/nav_leaderboard"-->
+<!--     android:title="@string/leaderboard"-->
+<!--     android:icon="@drawable/ic_leaderboard"/>-->
  <item
      android:id="@+id/nav_account"
      android:title="@string/account"

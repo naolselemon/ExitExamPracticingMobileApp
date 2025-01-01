@@ -34,18 +34,19 @@ implements NavigationView.OnNavigationItemSelectedListener{
     private FrameLayout main_frame;
     private TextView drawerProfileName, getDrawerProfileText;
     private NavigationView navigationView;
+
+
     //Method created to control change from one bottom navigation others
     // the method is initiated from onCreate   method which is overridable.
-
     private BottomNavigationView.OnItemSelectedListener OnItemSelectedListener
             = item -> {
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_home) {
                     setFragment(new CategoryFragment());
                     return true;
-                } else if (itemId == R.id.nav_leaderboard) {
-                    setFragment(new LeaderboardFragment());
-                    return true;
+//                } else if (itemId == R.id.nav_leaderboard) {
+//                    setFragment(new LeaderboardFragment());
+//                    return true;
                 } else {
                    setFragment(new AccountFragment());
                     return true;
@@ -58,10 +59,10 @@ implements NavigationView.OnNavigationItemSelectedListener{
             if(item.getItemId() ==  R.id.nav_home) {
                 setFragment(new CategoryFragment());
             }
-            else if (item.getItemId() == R.id.nav_leaderboard){
-
-            setFragment(new LeaderboardFragment());
-        }
+//            else if (item.getItemId() == R.id.nav_leaderboard){
+//
+//            setFragment(new LeaderboardFragment());
+//        }
            else if(item.getItemId() == R.id.nav_account){
             setFragment(new AccountFragment());
         }
@@ -90,6 +91,7 @@ implements NavigationView.OnNavigationItemSelectedListener{
         main_frame = findViewById(R.id.main_layout);
 
         bottomNavigationView.setOnItemSelectedListener(OnItemSelectedListener);
+
         //this is drawer layout which will be initiated by ActionBarDrawerToggle
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close); // three line for drawing purpose

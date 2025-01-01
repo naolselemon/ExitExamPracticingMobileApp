@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:background="@color/white_gray"
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
@@ -67,22 +68,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lgEmailAddress" />
 
-    <TextView
-        android:id="@+id/lgForgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/forgot_password"
-        android:textColor="@color/blackColor"
-        app:layout_constraintTop_toBottomOf="@+id/lgPassword"
-        tools:layout_editor_absoluteX="31dp"
-        tools:ignore="MissingConstraints" />
+<!--    <TextView-->
+<!--        android:id="@+id/lgForgotPassword"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="@string/forgot_password"-->
+<!--        android:textColor="@color/blackColor"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/lgPassword"-->
+<!--        tools:layout_editor_absoluteX="31dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
 
     <Button
         android:id="@+id/lgLoginButton"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="55dp"
         android:text="@string/loginButton"
         android:background="@drawable/button_shape"
         android:backgroundTint="@color/teal_700"
@@ -92,7 +93,7 @@
         android:stateListAnimator="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lgForgotPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/lgPassword" />
 
     <TextView
         android:id="@+id/textView3"

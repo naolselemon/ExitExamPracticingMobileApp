@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.lgPassword);
         loginButton = findViewById(R.id.lgLoginButton);
         signupButton = findViewById(R.id.lgSignUp);
-        forgotPassword = findViewById(R.id.lgForgotPassword);
+//        forgotPassword = findViewById(R.id.lgForgotPassword);
 
 
         progressDialog = new Dialog(LoginActivity.this);

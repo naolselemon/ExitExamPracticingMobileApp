@@ -83,7 +83,7 @@ private int finalScore;
         correctQTV = findViewById(R.id.num_correct);
         wrongQTV = findViewById(R.id.num_wrong);
         unattemptedQTV = findViewById(R.id.num_unattempted);
-        leaderB = findViewById(R.id.leaderboardB);
+//        leaderB = findViewById(R.id.leaderboardB);
         reAttemptB = findViewById(R.id.reattemptB);
         viewAnsB = findViewById(R.id.view_answer);
     }

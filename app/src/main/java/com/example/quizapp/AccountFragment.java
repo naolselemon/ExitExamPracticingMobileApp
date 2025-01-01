@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -18,7 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
  * create an instance of this fragment.
  */
 public class AccountFragment extends Fragment {
-        private Button logoutButton;
+        private LinearLayout logoutButton;
+        private TextView profile_image_text, name, score, rank;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -66,7 +69,7 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
-        logoutButton = view.findViewById(R.id.logoutButton);
+        init(view);
         logoutButton.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -75,5 +78,14 @@ public class AccountFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void init(View view){
+        logoutButton = view.findViewById(R.id.logoutLL);
+        profile_image_text = view.findViewById(R.id.profile_image);
+        name = view.findViewById(R.id.profile_image_name);
+        score = view.findViewById(R.id.score);
+        logoutButton = view.findViewById(R.id.logoutLL);
+        rank = view.findViewById(R.id.rank);
     }
 }

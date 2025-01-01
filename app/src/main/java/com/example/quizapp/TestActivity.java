@@ -48,7 +48,7 @@ public class TestActivity extends AppCompatActivity {
 
 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        testView = findViewById(R.id.test_recycler_view);
+            testView = findViewById(R.id.test_recycler_view);
 
 
             progressDialog = new Dialog(TestActivity.this);
