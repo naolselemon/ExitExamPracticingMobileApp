@@ -23,7 +23,7 @@ public class AnswersAdapter extends RecyclerView.Adapter<AnswersAdapter.ViewHold
     @NonNull
     @Override
     public AnswersAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test_item_layout, parent, false);
+       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.answer_item_layout, parent, false);
         return new ViewHolder(view);
     }
 
@@ -61,11 +61,11 @@ public class AnswersAdapter extends RecyclerView.Adapter<AnswersAdapter.ViewHold
         }
         private void setData(int pos, String ques, String a, String b, String c, String d, int selected, int correctAnswer){
             questNo.setText(String.format("Question Number: %s", String.valueOf(pos)));
-            question.setText(ques);
-            optionA.setText(a);
-            optionB.setText(b);
-            optionC.setText(c);
-            optionD.setText(d);
+            question.setText("Question: "+ ques);
+            optionA.setText("A: "+a);
+            optionB.setText("B: "+b);
+            optionC.setText("C: "+c);
+            optionD.setText("D: "+d);
 
             if(selected == correctAnswer){
                 result.setText("CORRECT");

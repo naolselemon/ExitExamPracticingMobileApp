@@ -36,6 +36,9 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull TestAdapter.ViewHolder holder, int position) {
         int progress = testList.get(position).getTestScore();
         holder.setData(position, progress);
+
+
+
     }
 
     @Override
@@ -58,7 +61,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         }
 
         private void setData(int pos,int progress){
-            testNo.setText("Test Number: "+ String.valueOf(pos + 1));
+            testNo.setText("Exam: "+ String.valueOf(pos + 1));
             topScore.setText("Top Score: "+ String.valueOf(progress) + "%");
             progressBar.setProgress(progress);
 
@@ -70,7 +73,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                     itemView.getContext().startActivity(intent);
                 }
             });
-            Log.d("TestAdapter", "Binding data for position: " + pos);
+//            Log.d("TestAdapter", "Binding data for position: " + pos);
+            Log.d("TestAdapter", "Position: " + pos + ", TestScore: " + testList.get(pos).getTestScore());
         }
 
 

@@ -6,6 +6,12 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.credentials.Credential;
 import android.credentials.CredentialManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.os.Bundle;
 import android.service.credentials.GetCredentialRequest;
 import android.util.Log;
@@ -13,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -92,6 +99,15 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Circular ImageView logic
+        ImageView imageView = findViewById(R.id.lgLogo);
+        imageView.post(() -> {
+            // Get the drawable bitmap
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.examlogo);
+            // Set the circular bitmap
+            imageView.setImageBitmap(createCircularBitmap(bitmap));
+        });
     }
 
 
@@ -122,6 +138,23 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    private Bitmap createCircularBitmap(Bitmap bitmap) {
+        int width = Math.min(bitmap.getWidth(), bitmap.getHeight());
+        Bitmap output = Bitmap.createBitmap(width, width, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(output);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+
+        BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        paint.setShader(shader);
+
+        float radius = width / 2f;
+        canvas.drawCircle(radius, radius, radius, paint);
+
+        return output;
     }
 
     public void login() {
