@@ -44,9 +44,7 @@ public class TestActivity extends AppCompatActivity {
                 return;
             }
 
-        getSupportActionBar().setTitle(DBQuery.get_catList.get(DBQuery.get_selected_cat_index).getName());
-
-
+            getSupportActionBar().setTitle(DBQuery.get_catList.get(DBQuery.get_selected_cat_index).getName());
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             testView = findViewById(R.id.test_recycler_view);
 

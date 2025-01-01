@@ -4,6 +4,7 @@ import static com.example.quizapp.DBQuery.get_catList;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.example.quizapp.Adapter.CategoryAdapter;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,6 +72,10 @@ public class CategoryFragment extends Fragment {
         // Inflate the layout for this fragment
        View view =  inflater.inflate(R.layout.fragment_category, container, false);
        catView = view.findViewById(R.id.category_grid);
+
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
+        Objects.requireNonNull(((MainActivity) requireActivity()).getSupportActionBar()).setTitle("Categories");
+
 
 //       loadCategories();
        CategoryAdapter adapter = new CategoryAdapter(get_catList);

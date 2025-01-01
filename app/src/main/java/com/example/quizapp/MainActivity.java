@@ -27,6 +27,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quizapp.databinding.ActivityMainBinding;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity
 implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -85,7 +87,10 @@ implements NavigationView.OnNavigationItemSelectedListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("Categories");
 
         bottomNavigationView = findViewById(R.id.bottom_nav_bar);
         main_frame = findViewById(R.id.main_layout);

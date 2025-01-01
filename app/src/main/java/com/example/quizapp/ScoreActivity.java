@@ -39,6 +39,7 @@ private int finalScore;
         setContentView(R.layout.activity_score);
 
         toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle(DBQuery.get_catList.get(DBQuery.get_selected_cat_index).getName());
@@ -58,8 +59,10 @@ private int finalScore;
         viewAnsB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(ScoreActivity.this, AnswersActivity.class);
+                startActivity(intent);
             }
+
         });
 
         reAttemptB.setOnClickListener(new View.OnClickListener() {

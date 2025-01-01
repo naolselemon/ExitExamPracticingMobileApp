@@ -3,8 +3,10 @@ package com.example.quizapp;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,7 +73,32 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
+
         init(view);
+
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
+
+        Objects.requireNonNull(((MainActivity) requireActivity()).getSupportActionBar()).setTitle("My Account");
+
+        String username = DBQuery.myProfile.getName();
+
+        if (username != null) {
+            name.setText(username);
+        } else {
+            Log.e("AccountFragment", "name TextView is null");
+        }
+
+        profile_image_text.setText(username.toUpperCase().substring(0,1));
+
+        if (DBQuery.myPerformance != null) {
+            score.setText(String.valueOf(DBQuery.myPerformance.getScore()));
+        } else {
+            Log.e("AccountFragment", "DBQuery.myPerformance is null.");
+        }
+
+//        score.setText(String.valueOf(DBQuery.myPerformance.getScore()));
+
+
         logoutButton.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -81,11 +110,18 @@ public class AccountFragment extends Fragment {
     }
 
     private void init(View view){
-        logoutButton = view.findViewById(R.id.logoutLL);
-        profile_image_text = view.findViewById(R.id.profile_image);
-        name = view.findViewById(R.id.profile_image_name);
-        score = view.findViewById(R.id.score);
-        logoutButton = view.findViewById(R.id.logoutLL);
-        rank = view.findViewById(R.id.rank);
-    }
+            logoutButton = view.findViewById(R.id.logoutLL);
+            profile_image_text = view.findViewById(R.id.profile_image);
+            name = view.findViewById(R.id.profile_image_name);
+            score = view.findViewById(R.id.overall_score);
+            rank = view.findViewById(R.id.rank);
+
+            if (logoutButton == null) Log.e("AccountFragment", "logoutButton is null");
+            if (profile_image_text == null) Log.e("AccountFragment", "profile_image_text is null");
+            if (name == null) Log.e("AccountFragment", "name is null");
+            if (score == null) Log.e("AccountFragment", "score is null");
+            if (rank == null) Log.e("AccountFragment", "rank is null");
+        }
+
+
 }

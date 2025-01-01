@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuizApp">
         <activity
+            android:name=".AnswersActivity"
+            android:exported="false" />
+        <activity
             android:name=".ScoreActivity"
             android:exported="false" />
         <activity
@@ -23,7 +26,6 @@
         <activity
             android:name=".TestActivity"
             android:theme="@style/Theme.QuizApp.NoActionBar" />
-
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />
